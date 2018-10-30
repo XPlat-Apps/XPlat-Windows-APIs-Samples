@@ -1,5 +1,6 @@
-XPlat Windows APIs samples
-===========
+<img src="https://github.com/jamesmcroft/XPlat-Windows-APIs/blob/develop/Assets/ProjectBanner.png" alt="XPlat Windows APIs" />
+
+# XPlat Windows APIs Samples
 
 XPlat Windows APIs are designed to make it easier for UWP developers to build for iOS and Android taking advantage of common APIs found in the Windows APIs without a great deal of change to their existing Windows app code. 
 
