@@ -1,30 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
-namespace CameraCaptureUI.Windows
+﻿namespace CameraCaptureUI.Windows
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    using System;
+
+    using global::Windows.UI.Xaml;
+    using global::Windows.UI.Xaml.Controls;
+    using global::Windows.UI.Xaml.Media.Imaging;
+
+    using XPlat.Media.Capture;
+    using XPlat.Storage;
+
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void CaptureImage_Click(object sender, RoutedEventArgs e)
+        {
+            CameraCaptureUI cameraCaptureUi = new CameraCaptureUI();
+            cameraCaptureUi.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
+
+            try
+            {
+                IStorageFile file = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Photo);
+                System.Diagnostics.Debug.WriteLine(file != null ? file.Path : "No image was captured.");
+
+                if (file != null)
+                {
+                    this.OutputImage.Source = new BitmapImage(new Uri(file.Path));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
         }
     }
 }
