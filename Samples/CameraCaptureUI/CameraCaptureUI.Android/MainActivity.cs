@@ -3,11 +3,13 @@
     using System;
 
     using global::Android.App;
-
+    using global::Android.Graphics;
     using global::Android.OS;
 
     using global::Android.Support.V7.App;
     using global::Android.Widget;
+
+    using Java.Net;
 
     using XPlat.Media.Capture;
     using XPlat.Storage;
@@ -15,7 +17,9 @@
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button captureImageButton;
+        private Button captureImage;
+
+        private ImageView outputImage;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,30 +29,37 @@
 
         protected override void OnResume()
         {
-            if (this.captureImageButton != null)
+            if (this.captureImage != null)
             {
-                this.captureImageButton.Click -= this.OnCaptureImageClick;
+                this.captureImage.Click -= this.CaptureImage_Click;
             }
 
             base.OnResume();
 
-            this.captureImageButton = this.FindViewById<Button>(Resource.Id.capture_image_button);
+            this.captureImage = this.FindViewById<Button>(Resource.Id.CaptureImage);
+            this.outputImage = this.FindViewById<ImageView>(Resource.Id.OutputImage);
 
-            if (this.captureImageButton != null)
+            if (this.captureImage != null)
             {
-                this.captureImageButton.Click += this.OnCaptureImageClick;
+                this.captureImage.Click += this.CaptureImage_Click;
             }
         }
 
-        private async void OnCaptureImageClick(object sender, EventArgs e)
+        private async void CaptureImage_Click(object sender, EventArgs e)
         {
-            CameraCaptureUI dialog = new CameraCaptureUI(this);
-            dialog.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
+            CameraCaptureUI cameraCaptureUi = new CameraCaptureUI(this);
+            cameraCaptureUi.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
 
             try
             {
-                IStorageFile file = await dialog.CaptureFileAsync(CameraCaptureUIMode.Photo);
+                IStorageFile file = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Photo);
                 System.Diagnostics.Debug.WriteLine(file != null ? file.Path : "No image was captured.");
+
+                if (file != null)
+                {
+                    Bitmap bitmap = BitmapFactory.DecodeFile(file.Path);
+                    this.outputImage.SetImageBitmap(bitmap);
+                }
             }
             catch (Exception ex)
             {

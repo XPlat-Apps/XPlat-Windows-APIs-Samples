@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-	android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-	<Button android:id="@+id/capture_image_button" 
-		android:text="@string/capture_image"
+    <LinearLayout 
+		android:padding="20dp" 
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">   
 
-</LinearLayout>
+		<TextView 
+			android:text="Use the CameraCaptureUI API to capture an image or video" 
+			android:layout_width="match_parent" 
+			android:layout_height="wrap_content" />
+		
+		<Button 
+			android:id="@+id/CaptureImage"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Capture Image" />
+
+		<ImageView 
+			android:id="@+id/OutputImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>
