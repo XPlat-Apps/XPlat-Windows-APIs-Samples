@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="Package.Windows.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <ScrollViewer
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto">
+        <Grid
+            x:Name="LayoutRoot"
+            Padding="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="Input" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="Use the Package API to retrieve the current application's package information."
+                    TextWrapping="Wrap" />
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,10"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="GetPackage"
+                        Margin="0,0,10,0"
+                        Click="GetPackage_Click"
+                        Content="Get Package" />
+                </StackPanel>
+            </Grid>
+            <Grid
+                x:Name="Output"
+                Grid.Row="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <TextBlock
+                    x:Name="OutputText"
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource BodyTextBlockStyle}" />
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>
